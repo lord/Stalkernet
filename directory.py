@@ -127,12 +127,15 @@ def data_of(x):
     address = address.groups()[0] if address else None
     photo = re.search(re_photo, x)
     photo = photo.groups()[0] if photo else None
-
     if dorm in ["Off Campus Program", "On Leave", "Unknown", "Early Finish"]:
         return None
     if lives_in_dorm:
-        #print dorm.split()[-1][0]
-        floor = int(dorm.split()[-1][0])
+        # this was crashing because Carleton has some Northfiled option
+        # students listed differently. Temporary fix.
+        try:
+            floor = int(dorm.split()[-1][0])
+        except:
+            return None
         roomNumber = dorm.split()[-1]
         dorm = (' ').join(dorm.split()[:-1])
 
