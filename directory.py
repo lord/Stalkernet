@@ -156,7 +156,7 @@ def data_of(x):
         'floor': floor,
         'roomNumber': roomNumber,
         'photo': photo,
-        'address': address
+        'address': address,
     }
 
 
