@@ -105,7 +105,11 @@ def data_of(x):
     major = re.findall(re_major, x)
     concentration = re.findall(re_concentration, x)
     year = re.search(re_year, x)
-    year = int(year.groups()[0]) if year else None
+    try:
+      year = int(year.groups()[0]) if year else None
+    except ValueError:
+      year = None
+      
     dorm = re.search(re_dorm, x)
     if dorm:
         dorm = dorm.groups()[0]
