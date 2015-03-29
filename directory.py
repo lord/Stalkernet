@@ -85,8 +85,9 @@ def get_people(d):
         floor = d[k]['floor']
         roomNumber = d[k]['roomNumber']
         email = d[k]['photo']
+        address = d[k]['address']
         urllib.urlretrieve("https://apps.carleton.edu/stock/ldapimage.php?id=%s&source=campus_directory" %email, "stalkernet_images/%s.jpg" %email)
-        output_file.write("%s,%s,%d,%s,%d,%s,%s\n" %(name, majors, year, dorm, floor, roomNumber, email))
+        output_file.write("%s,%s,%d,%s,%d,%s,%s,\"%s\"\n" %(name, majors, year, dorm, floor, roomNumber, email, address))
 
 
 def name_of(x):
@@ -146,6 +147,7 @@ def data_of(x):
     else:
         floor = -1
         roomNumber = "-1"
+
     return {
         'name': name,
         'major': major,
@@ -153,7 +155,8 @@ def data_of(x):
         'dorm': dorm,
         'floor': floor,
         'roomNumber': roomNumber,
-        'photo': photo
+        'photo': photo,
+        'address': address
     }
 
 
