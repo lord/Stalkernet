@@ -87,7 +87,8 @@ def get_people(d):
         email = d[k]['photo']
         address = d[k]['address']
         urllib.urlretrieve("https://apps.carleton.edu/stock/ldapimage.php?id=%s&source=campus_directory" %email, "stalkernet_images/%s.jpg" %email)
-        output_file.write("%s,%s,%d,%s,%d,%s,%s,\"%s\"\n" %(name, majors, year, dorm, floor, roomNumber, email, address))
+        output_file.write('{0},{1},{2},{3},{4},{5},{6},"{7}",\n'.format(
+              name, majors, year, dorm, floor, roomNumber, email, address))
 
 
 def name_of(x):
