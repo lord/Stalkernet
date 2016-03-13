@@ -33,7 +33,7 @@ from collections import defaultdict
 
 # Global constants.
 url = 'http://apps.carleton.edu/campus/directory/'
-years = [2015, 2016, 2017, 2018]
+years = [2016, 2017, 2018, 2019]
 
 
 # Regular expressions to capture data elements from HTML.
