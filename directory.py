@@ -23,6 +23,7 @@ $ python directory.py
 # [u'Michael Shin', u'Jake Reardon', u'Woosik Koong', u'Sipho Mhlanga', u'Chessy Cantrell']
 
 
+import argparse
 import pickle
 import re
 import requests
@@ -33,7 +34,6 @@ from collections import defaultdict
 
 # Global constants.
 url = 'http://apps.carleton.edu/campus/directory/'
-years = [2017, 2018, 2019, 2020]
 
 
 # Regular expressions to capture data elements from HTML.
@@ -54,7 +54,12 @@ re_photo = 'src="/stock/ldapimage.php?\?id=(.*?)&source=campus_directory"'
 
 
 def main():
-    global d, m, output_file
+    global d, m, output_file, years
+    parser = argparse.ArgumentParser(description='Scrape Stalkernet for metadata and pictures of all current Carleton students')
+    parser.add_argument('year', metavar='YEAR', type=int, help='The graduation year of the current senior class')
+    args = parser.parse_args()
+    year = args.year
+    years = [year, year+1, year+2, year+3]
     try:
         f = open('directory.pickle', 'r')
         d = pickle.load(f)
@@ -111,7 +116,7 @@ def data_of(x):
       year = int(year.groups()[0]) if year else None
     except ValueError:
       year = None
-      
+
     dorm = re.search(re_dorm, x)
     if dorm:
         dorm = dorm.groups()[0]
