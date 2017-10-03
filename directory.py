@@ -28,7 +28,7 @@ import pickle
 import re
 import requests
 import string
-import urllib
+import urllib.request, urllib.parse, urllib.error
 import os
 from collections import defaultdict
 
@@ -64,14 +64,14 @@ def main():
         f = open('directory.pickle', 'r')
         d = pickle.load(f)
         f.close()
-        print "Directory data loaded."
+        print("Directory data loaded.")
     except IOError:
-        print "Directory data not found, beginning scrape."
+        print("Directory data not found, beginning scrape.")
         d = get_directory()
         f = open('directory.pickle', 'w')
         pickle.dump(d, f)
         f.close()
-        print "Directory data saved."
+        print("Directory data saved.")
     if not os.path.exists('stalkernet_images'):
          os.makedirs('stalkernet_images')
     output_file = open('stalkernet_data.csv', 'w')
@@ -81,7 +81,7 @@ def main():
 def get_people(d):
     m = defaultdict(int)
     counter = 0
-    for k in d.iterkeys():
+    for k in d.keys():
         counter += 1
         name = d[k]['name']
         majors = ' / '.join(d[k]['major'])
@@ -91,7 +91,7 @@ def get_people(d):
         roomNumber = d[k]['roomNumber']
         email = d[k]['photo']
         address = d[k]['address']
-        urllib.urlretrieve("https://apps.carleton.edu/stock/ldapimage.php?id=%s&source=campus_directory" %email, "stalkernet_images/%s.jpg" %email)
+        # urllib.request.urlretrieve("https://apps.carleton.edu/stock/ldapimage.php?id=%s&source=campus_directory" %email, "stalkernet_images/%s.jpg" %email)
         output_file.write('{0},{1},{2},{3},{4},{5},{6},"{7}",\n'.format(
               name, majors, year, dorm, floor, roomNumber, email, address))
 
@@ -170,7 +170,7 @@ def get_directory():
     d = {}
     for y in years:
         for c in string.ascii_lowercase:
-            print "Looking up students from the class of %i whose names begin with %s" % (y, c.upper())
+            print("Looking up students from the class of %i whose names begin with %s" % (y, c.upper()))
             payload = {
                 'search_for': 'student',
                 'year': y,
