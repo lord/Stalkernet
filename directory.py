@@ -60,21 +60,10 @@ def main():
     args = parser.parse_args()
     year = args.year
     years = [year, year+1, year+2, year+3]
-    try:
-        f = open('directory.pickle', 'r')
-        d = pickle.load(f)
-        f.close()
-        print("Directory data loaded.")
-    except IOError:
-        print("Directory data not found, beginning scrape.")
-        d = get_directory()
-        f = open('directory.pickle', 'w')
-        pickle.dump(d, f)
-        f.close()
-        print("Directory data saved.")
     if not os.path.exists('stalkernet_images'):
          os.makedirs('stalkernet_images')
     output_file = open('stalkernet_data.csv', 'w')
+    d = get_directory()
     get_people(d)
     output_file.close()
 
